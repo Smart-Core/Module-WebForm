@@ -3,10 +3,10 @@
 namespace SmartCore\Module\WebForm\Controller;
 
 use Knp\RadBundle\Controller\Controller;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Exception\NotValidCurrentPageException;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Smart\CoreBundle\Pagerfanta\SimpleDoctrineORMAdapter;
 use SmartCore\Module\WebForm\Entity\Message;
 use SmartCore\Module\WebForm\Entity\WebForm;
 use SmartCore\Module\WebForm\Entity\WebFormField;
@@ -187,7 +187,7 @@ class AdminWebFormController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $pagerfanta = new Pagerfanta(new SimpleDoctrineORMAdapter(
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter(
             $em->getRepository('WebFormModule:Message')->getFindByStatusQuery($webForm, $status)
         ));
         $pagerfanta->setMaxPerPage(20);
