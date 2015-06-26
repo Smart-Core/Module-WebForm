@@ -1,0 +1,9 @@
+{
+    "name": "smart-core/module-webform",
+    "require": {
+        "smart-core/cms-bundle": "*"
+    },
+    "autoload": {
+        "psr-4": { "SmartCore\\Module\\WebForm\\": "" }
+    }
+}
