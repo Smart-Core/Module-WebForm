@@ -4,7 +4,7 @@ namespace SmartCore\Module\WebForm\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class WebFormFieldType extends AbstractType
 {
@@ -33,7 +33,7 @@ class WebFormFieldType extends AbstractType
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => 'SmartCore\Module\WebForm\Entity\WebFormField',
