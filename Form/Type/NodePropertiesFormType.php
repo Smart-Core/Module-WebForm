@@ -11,7 +11,7 @@ class NodePropertiesFormType extends AbstractNodePropertiesFormType
     {
         $webforms = [];
         foreach ($this->em->getRepository('WebFormModule:WebForm')->findAll() as $webform) {
-            $webforms[$webform->getId()] = $webform;
+            $webforms[$webform->getId()] = (string) $webform;
         }
 
         $builder
