@@ -90,7 +90,7 @@ class AdminWebFormController extends Controller
             'form'            => $form->createView(),
             'nodePath'        => $this->getNodePath($webForm),
             'web_form'        => $webForm,
-            'web_form_fields' => $em->getRepository('WebFormModule:WebFormField')->findBy(['web_form' => $webForm]),
+            'web_form_fields' => $em->getRepository('WebFormModule:WebFormField')->findBy(['web_form' => $webForm], ['position' => 'ASC']),
         ]);
     }
 
