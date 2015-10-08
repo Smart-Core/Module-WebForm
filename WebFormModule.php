@@ -7,6 +7,8 @@ use SmartCore\Module\WebForm\Entity\Message;
 
 class WebFormModule extends ModuleBundle
 {
+    protected $adminMenuBeforeCode = '<i class="fa fa-bullhorn"></i>';
+
     public function getRequiredParams()
     {
         return [
