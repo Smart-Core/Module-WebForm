@@ -34,7 +34,7 @@ class AdminWebFormController extends Controller
             if ($form->isValid()) {
                 if ($form->get('create')->isClicked()) {
                     $webForm = $form->getData();
-                    $webForm->setUserId($this->getUser());
+                    $webForm->setUser($this->getUser());
                     $this->addFlash('success', 'Веб-форма создана.');
 
                     $this->persist($webForm, true);
@@ -63,7 +63,7 @@ class AdminWebFormController extends Controller
         $webFormField = new WebFormField();
         $webFormField
             ->setWebForm($webForm)
-            ->setUserId($this->getUser())
+            ->setUser($this->getUser())
         ;
 
         $form = $this->createForm(new WebFormFieldType(), $webFormField);

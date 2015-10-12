@@ -17,7 +17,7 @@ class WebForm
     use ColumnTrait\CreatedAt;
     use ColumnTrait\NameUnique;
     use ColumnTrait\TitleNotBlank;
-    use ColumnTrait\UserId;
+    use ColumnTrait\FosUser;
 
     /**
      * @var bool

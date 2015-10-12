@@ -20,7 +20,7 @@ class WebFormField
     use ColumnTrait\CreatedAt;
     use ColumnTrait\Position;
     use ColumnTrait\TitleNotBlank;
-    use ColumnTrait\UserId;
+    use ColumnTrait\FosUser;
 
     /**
      * @var bool
@@ -82,7 +82,6 @@ class WebFormField
         $this->params       = [];
         $this->params_yaml  = null;
         $this->position     = 0;
-        $this->user_id      = 0;
     }
 
     /**

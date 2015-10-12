@@ -14,7 +14,7 @@ class Message
     use ColumnTrait\Id;
     use ColumnTrait\CreatedAt;
     use ColumnTrait\IpAddress;
-    use ColumnTrait\UserId;
+    use ColumnTrait\FosUser;
 
     const STATUS_NEW         = 0;
     const STATUS_IN_PROGRESS = 1;
