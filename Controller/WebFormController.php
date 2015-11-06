@@ -42,7 +42,7 @@ class WebFormController extends Controller
                 'name' => $webForm->getName(),
             ]));
 
-        return $this->render('WebFormModule::index.html.twig', [
+        return $this->get('twig')->render('WebFormModule::index.html.twig', [
             'form' => $form->createView(),
             'node_id' => $this->node->getId(),
             'web_form' => $webForm,
@@ -162,7 +162,7 @@ class WebFormController extends Controller
 
         $form->handleRequest($request);
 
-        return $this->render('WebFormModule::index.html.twig', [
+        return $this->get('twig')->render('WebFormModule::index.html.twig', [
             'form' => $form->createView(),
             'node_id' => $this->node->getId(),
             'web_form' => $webForm,
@@ -227,7 +227,7 @@ class WebFormController extends Controller
                 ->setSubject('Сообщение с веб-формы «'.$webForm->getTitle().'» ('.$this->container->getParameter('base_url').')')
                 ->setFrom($webForm->getFromEmail())
                 ->setTo($addresses)
-                ->setBody($this->renderView('WebFormModule:Email:notice.email.twig', ['web_form' => $webForm, 'message' => $message]))
+                ->setBody($this->get('twig')->render('WebFormModule:Email:notice.email.twig', ['web_form' => $webForm, 'message' => $message]))
             ;
             $mailer->send($message);
         }
