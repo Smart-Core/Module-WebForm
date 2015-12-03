@@ -84,7 +84,7 @@ class Message
         return [
             self::STATUS_NEW            => 'Новый',
             self::STATUS_IN_PROGRESS    => 'В работе',
-            self::STATUS_FINISHED       => 'Выпролнен',
+            self::STATUS_FINISHED       => 'Выполнен',
             self::STATUS_REJECTED       => 'Оклонён',
         ];
     }
