@@ -1,9 +1,14 @@
 Edit field: Редатиктировать поле
 Fields: Поля
 Fields of WebForm: Поля Веб-формы
+Final text: Итоговый Текст 
 Finished: Выполнены
+From email: E-mail отправителя
+Is ajax: Использовать ajax
+Is use captcha: Использовать капчу
 New messages: Новые сообщения
 Rejected: Отклонены
+Send button title: Текст кнопки отправки
 Send notice emails: Список e-mail для уведомления
 Settings of WebForm: Настройки Веб-формы
 WebForm: Веб-форма
