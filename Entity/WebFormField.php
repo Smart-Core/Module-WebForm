@@ -31,7 +31,7 @@ class WebFormField
 
     /**
      * @var string
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @Assert\Regex(
      *      pattern="/^[a-z_]+$/",
