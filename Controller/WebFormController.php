@@ -245,10 +245,17 @@ class WebFormController extends Controller
             //->setAttribute('id', 'web_form_'.$webForm->getName())
             ->setErrorBubbling(false)
         ;
+
         foreach ($webForm->getFields() as $field) {
-            $fb->add($field->getName(), $field->getType(), [
-                'required' => $field->getIsRequired(),
-            ]);
+            if (is_array($field->getParams())) {
+                $options = $field->getParams();
+            } else {
+                $options = [];
+            }
+
+            $options['required'] = $field->getIsRequired();
+
+            $fb->add($field->getName(), $field->getType(), $options);
         }
 
         if ($webForm->isIsUseCaptcha()) {

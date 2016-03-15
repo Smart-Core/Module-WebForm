@@ -22,8 +22,8 @@ class WebFormFieldType extends AbstractType
                     'date'        => 'Date',
                     'datetime'    => 'Datetime',
                     'checkbox'    => 'Сheckbox',
-                    'select'      => 'Select',
-                    'multiselect' => 'Multiselect',
+                    'choice'      => 'Select',
+                    //'multiselect' => 'Multiselect',
                 ],
             ])
             ->add('params_yaml',   null, ['attr' => ['data-editor' => 'yaml']])
