@@ -3,6 +3,7 @@
 namespace SmartCore\Module\WebForm\Form\Type;
 
 use SmartCore\Bundle\CMSBundle\Module\AbstractNodePropertiesFormType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class NodePropertiesFormType extends AbstractNodePropertiesFormType
@@ -15,7 +16,7 @@ class NodePropertiesFormType extends AbstractNodePropertiesFormType
         }
 
         $builder
-            ->add('webform_id', 'choice', [
+            ->add('webform_id', ChoiceType::class, [
                 'choices'  => $webforms,
                 'required' => false,
                 'label'    => 'WebForms',

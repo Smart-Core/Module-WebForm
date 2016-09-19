@@ -6,6 +6,7 @@ use Smart\CoreBundle\Controller\Controller;
 use SmartCore\Bundle\CMSBundle\Module\NodeTrait;
 use SmartCore\Module\WebForm\Entity\Message;
 use SmartCore\Module\WebForm\Entity\WebForm;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -262,7 +263,7 @@ class WebFormController extends Controller
             $fb->add('captcha', 'genemu_captcha', ['mapped' => false]);
         }
 
-        $fb->add('send', 'submit', [
+        $fb->add('send', SubmitType::class, [
             'attr' => ['class' => 'btn btn-success'],
             'label' => $webForm->getSendButtonTitle(),
         ]);

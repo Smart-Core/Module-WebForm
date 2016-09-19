@@ -7,8 +7,9 @@ use Knp\Menu\ItemInterface;
 use SmartCore\Module\WebForm\Entity\Message;
 use SmartCore\Module\WebForm\Entity\WebForm;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
-class AdminMenu
+class AdminMenu implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 

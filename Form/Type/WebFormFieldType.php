@@ -3,6 +3,7 @@
 namespace SmartCore\Module\WebForm\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,7 @@ class WebFormFieldType extends AbstractType
         $builder
             ->add('title', null, ['attr' => ['autofocus' => 'autofocus', 'placeholder' => 'Произвольная строка']])
             ->add('name',  null, ['attr' => ['placeholder' => 'Латинские буквы в нижем регистре и символы подчеркивания.']])
-            ->add('type', 'choice', [
+            ->add('type', ChoiceType::class, [
                 'choices' => [
                     'text'        => 'Text',
                     'textarea'    => 'Textarea',

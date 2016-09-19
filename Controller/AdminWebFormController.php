@@ -14,6 +14,7 @@ use SmartCore\Module\WebForm\Form\Type\MessageType;
 use SmartCore\Module\WebForm\Form\Type\WebFormFieldType;
 use SmartCore\Module\WebForm\Form\Type\WebFormSettingsType;
 use SmartCore\Module\WebForm\Form\Type\WebFormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdminWebFormController extends Controller
@@ -25,8 +26,8 @@ class AdminWebFormController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $form = $this->createForm(new WebFormType());
-        $form->add('create', 'submit', ['attr' => ['class' => 'btn-primary']]);
+        $form = $this->createForm(WebFormType::class);
+        $form->add('create', SubmitType::class, ['attr' => ['class' => 'btn-primary']]);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -66,8 +67,8 @@ class AdminWebFormController extends Controller
             ->setUser($this->getUser())
         ;
 
-        $form = $this->createForm(new WebFormFieldType(), $webFormField);
-        $form->add('create', 'submit', ['attr' => ['class' => 'btn-primary']]);
+        $form = $this->createForm(WebFormFieldType::class, $webFormField);
+        $form->add('create', SubmitType::class, ['attr' => ['class' => 'btn-primary']]);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -106,11 +107,11 @@ class AdminWebFormController extends Controller
      */
     public function fieldEditAction(Request $request, WebForm $webForm, WebFormField $webFormField)
     {
-        $form = $this->createForm(new WebFormFieldType(), $webFormField);
+        $form = $this->createForm(WebFormFieldType::class, $webFormField);
         $form
-            ->add('update', 'submit', ['attr' => ['class' => 'btn-primary']])
-            ->add('delete', 'submit', ['attr' => ['class' => 'btn-danger', 'onclick' => "return confirm('Вы уверены, что хотите удалить поле?')"]])
-            ->add('cancel', 'submit', ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']])
+            ->add('update', SubmitType::class, ['attr' => ['class' => 'btn-primary']])
+            ->add('delete', SubmitType::class, ['attr' => ['class' => 'btn-danger', 'onclick' => "return confirm('Вы уверены, что хотите удалить поле?')"]])
+            ->add('cancel', SubmitType::class, ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']])
         ;
 
         if ($request->isMethod('POST')) {
@@ -149,10 +150,10 @@ class AdminWebFormController extends Controller
      */
     public function settingsAction(Request $request, WebForm $webForm)
     {
-        $form = $this->createForm(new WebFormSettingsType(), $webForm);
+        $form = $this->createForm(WebFormSettingsType::class, $webForm);
         $form
-            ->add('update', 'submit', ['attr' => ['class' => 'btn-primary']])
-            ->add('cancel', 'submit', ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']])
+            ->add('update', SubmitType::class, ['attr' => ['class' => 'btn-primary']])
+            ->add('cancel', SubmitType::class, ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']])
         ;
 
         if ($request->isMethod('POST')) {
@@ -232,10 +233,10 @@ class AdminWebFormController extends Controller
      */
     public function editMessageAction(Request $request, WebForm $webForm, Message $message)
     {
-        $form = $this->createForm(new MessageType(), $message);
+        $form = $this->createForm(MessageType::class, $message);
         $form
-            ->add('update', 'submit', ['attr' => ['class' => 'btn-primary']])
-            ->add('cancel', 'submit', ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']])
+            ->add('update', SubmitType::class, ['attr' => ['class' => 'btn-primary']])
+            ->add('cancel', SubmitType::class, ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']])
         ;
 
         if ($request->isMethod('POST')) {
