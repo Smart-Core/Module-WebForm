@@ -6,10 +6,12 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use SmartCore\Module\WebForm\Entity\Message;
 use SmartCore\Module\WebForm\Entity\WebForm;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-class AdminMenu extends ContainerAware
+class AdminMenu
 {
+    use ContainerAwareTrait;
+
     /**
      * @param FactoryInterface $factory
      * @param array $options
