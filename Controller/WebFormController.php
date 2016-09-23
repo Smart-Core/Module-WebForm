@@ -2,7 +2,9 @@
 
 namespace SmartCore\Module\WebForm\Controller;
 
+use Genemu\Bundle\FormBundle\Form\Core\Type\CaptchaType;
 use Smart\CoreBundle\Controller\Controller;
+use Smart\CoreBundle\Form\TypeResolverTtait;
 use SmartCore\Bundle\CMSBundle\Module\NodeTrait;
 use SmartCore\Module\WebForm\Entity\Message;
 use SmartCore\Module\WebForm\Entity\WebForm;
@@ -14,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 class WebFormController extends Controller
 {
     use NodeTrait;
+    use TypeResolverTtait;
 
     /** @var int|null */
     protected $webform_id;
@@ -30,7 +33,7 @@ class WebFormController extends Controller
 
         $form = $this->getForm($webForm);
 
-        $feedback_data = $this->get('session')->getFlashBag()->get('feedback_data');
+        $feedback_data = $this->getFlash('feedback_data');
 
         if (!empty($feedback_data)) {
             $form->submit(new Request($feedback_data[0]));
@@ -44,8 +47,8 @@ class WebFormController extends Controller
             ]));
 
         return $this->get('twig')->render('WebFormModule::index.html.twig', [
-            'form' => $form->createView(),
-            'node_id' => $this->node->getId(),
+            'form'     => $form->createView(),
+            'node_id'  => $this->node->getId(),
             'web_form' => $webForm,
         ]);
     }
@@ -186,8 +189,6 @@ class WebFormController extends Controller
 
         $form->handleRequest($request);
 
-        $session = $this->get('session')->getFlashBag();
-
         if ($form->isValid()) {
             $message = new Message();
             $message
@@ -200,10 +201,10 @@ class WebFormController extends Controller
 
             $this->sendNoticeEmails($webForm, $message);
 
-            $session->add('success', $webForm->getFinalText() ? $webForm->getFinalText() : 'Сообщение отправлено.');
+            $this->addFlash('success', $webForm->getFinalText() ? $webForm->getFinalText() : 'Сообщение отправлено.');
         } else {
-            $session->add('error', 'При заполнении формы допущены ошибки.');
-            $session->add('feedback_data', $request->request->all());
+            $this->addFlash('error', 'При заполнении формы допущены ошибки.');
+            $this->addFlash('feedback_data', $request->request->all());
         }
 
         return $this->redirect($request->getRequestUri());
@@ -256,15 +257,21 @@ class WebFormController extends Controller
 
             $options['required'] = $field->getIsRequired();
 
-            $fb->add($field->getName(), $field->getType(), $options);
+            if (isset($options['choices'])) {
+                $options['choices'] = array_flip($options['choices']);
+            }
+
+            $type = $this->resolveTypeName($field->getType());
+
+            $fb->add($field->getName(), $type, $options);
         }
 
         if ($webForm->isIsUseCaptcha()) {
-            $fb->add('captcha', 'genemu_captcha', ['mapped' => false]);
+            $fb->add('captcha', CaptchaType::class, ['mapped' => false]);
         }
 
         $fb->add('send', SubmitType::class, [
-            'attr' => ['class' => 'btn btn-success'],
+            'attr'  => ['class' => 'btn btn-success'],
             'label' => $webForm->getSendButtonTitle(),
         ]);
 

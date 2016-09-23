@@ -12,7 +12,7 @@ class NodePropertiesFormType extends AbstractNodePropertiesFormType
     {
         $webforms = [];
         foreach ($this->em->getRepository('WebFormModule:WebForm')->findAll() as $webform) {
-            $webforms[$webform->getId()] = (string) $webform;
+            $webforms[(string) $webform] = $webform->getId();
         }
 
         $builder
@@ -24,7 +24,7 @@ class NodePropertiesFormType extends AbstractNodePropertiesFormType
         ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'web_form_node_properties';
     }

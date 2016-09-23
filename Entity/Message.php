@@ -82,10 +82,10 @@ class Message
     public static function getFormChoicesStatuses()
     {
         return [
-            self::STATUS_NEW            => 'Новый',
-            self::STATUS_IN_PROGRESS    => 'В работе',
-            self::STATUS_FINISHED       => 'Выполнен',
-            self::STATUS_REJECTED       => 'Оклонён',
+            'Новый' => self::STATUS_NEW,
+            'В работе' => self::STATUS_IN_PROGRESS,
+            'Выполнен' => self::STATUS_FINISHED,
+            'Оклонён' => self::STATUS_REJECTED,
         ];
     }
 

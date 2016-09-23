@@ -2,6 +2,7 @@
 
 namespace SmartCore\Module\WebForm\Form\Type;
 
+use SmartCore\Module\WebForm\Entity\WebForm;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,11 +26,11 @@ class WebFormSettingsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'SmartCore\Module\WebForm\Entity\WebForm',
+            'data_class' => WebForm::class,
         ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'smart_module_webform_settings';
     }

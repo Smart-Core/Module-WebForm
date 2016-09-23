@@ -41,7 +41,7 @@ class AdminWebFormController extends Controller
                     $this->persist($webForm, true);
                 }
 
-                return $this->redirect($this->generateUrl('web_form.admin'));
+                return $this->redirectToRoute('web_form.admin');
             }
         }
 
@@ -80,7 +80,7 @@ class AdminWebFormController extends Controller
                     $this->persist($form->getData(), true);
                 }
 
-                return $this->redirect($this->generateUrl('web_form.admin_fields', ['name' => $webForm->getName()]));
+                return $this->redirectToRoute('web_form.admin_fields', ['name' => $webForm->getName()]);
             }
         }
 
@@ -117,21 +117,21 @@ class AdminWebFormController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirect($this->generateUrl('web_form.admin_fields', ['name' => $webForm->getName()]));
+                return $this->redirectToRoute('web_form.admin_fields', ['name' => $webForm->getName()]);
             }
 
             if ($form->get('delete')->isClicked()) {
                 $this->remove($form->getData(), true);
-                $this->get('session')->getFlashBag()->add('success', 'Поле удалено.');
+                $this->addFlash('success', 'Поле удалено.');
 
-                return $this->redirect($this->generateUrl('web_form.admin_fields', ['name' => $webForm->getName()]));
+                return $this->redirectToRoute('web_form.admin_fields', ['name' => $webForm->getName()]);
             }
 
             if ($form->isValid() and $form->get('update')->isClicked() and $form->isValid()) {
                 $this->persist($form->getData(), true);
-                $this->get('session')->getFlashBag()->add('success', 'Поле обновлено.');
+                $this->addFlash('success', 'Поле обновлено.');
 
-                return $this->redirect($this->generateUrl('web_form.admin_fields', ['name' => $webForm->getName()]));
+                return $this->redirectToRoute('web_form.admin_fields', ['name' => $webForm->getName()]);
             }
         }
 
@@ -159,14 +159,14 @@ class AdminWebFormController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirect($this->generateUrl('web_form.admin_new_messages', ['name' => $webForm->getName()]));
+                return $this->redirectToRoute('web_form.admin_new_messages', ['name' => $webForm->getName()]);
             }
 
             if ($form->isValid() and $form->get('update')->isClicked() and $form->isValid()) {
                 $this->persist($form->getData(), true);
-                $this->get('session')->getFlashBag()->add('success', 'Настройки обновлены.');
+                $this->addFlash('success', 'Настройки обновлены.');
 
-                return $this->redirect($this->generateUrl('web_form.admin_settings', ['name' => $webForm->getName()]));
+                return $this->redirectToRoute('web_form.admin_settings', ['name' => $webForm->getName()]);
             }
         }
 
@@ -196,7 +196,7 @@ class AdminWebFormController extends Controller
         try {
             $pagerfanta->setCurrentPage($request->query->get('page', 1));
         } catch (NotValidCurrentPageException $e) {
-            return $this->redirect($this->generateUrl('web_form.admin_new_messages', ['name' => $webForm->getName()]));
+            return $this->redirectToRoute('web_form.admin_new_messages', ['name' => $webForm->getName()]);
         }
 
         switch ($status) {
@@ -242,14 +242,14 @@ class AdminWebFormController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->get('cancel')->isClicked()) {
-                return $this->redirect($this->generateUrl('web_form.admin_new_messages', ['name' => $webForm->getName()]));
+                return $this->redirectToRoute('web_form.admin_new_messages', ['name' => $webForm->getName()]);
             }
 
             if ($form->isValid() and $form->get('update')->isClicked() and $form->isValid()) {
                 $this->persist($form->getData(), true);
-                $this->get('session')->getFlashBag()->add('success', 'Сообщение обновлено.');
+                $this->addFlash('success', 'Сообщение обновлено.');
 
-                return $this->redirect($this->generateUrl('web_form.admin_new_messages', ['name' => $webForm->getName()]));
+                return $this->redirectToRoute('web_form.admin_new_messages', ['name' => $webForm->getName()]);
             }
         }
 
@@ -266,7 +266,7 @@ class AdminWebFormController extends Controller
      */
     public function manageAction(WebForm $webForm)
     {
-        return $this->redirect($this->generateUrl('web_form.admin_new_messages', ['name' => $webForm->getName()]));
+        return $this->redirectToRoute('web_form.admin_new_messages', ['name' => $webForm->getName()]);
     }
 
     /**
