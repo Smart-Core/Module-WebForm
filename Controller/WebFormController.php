@@ -256,6 +256,7 @@ class WebFormController extends Controller
             }
 
             $options['required'] = $field->getIsRequired();
+            $options['label'] = $field->getTitle();
 
             if (isset($options['choices'])) {
                 $options['choices'] = array_flip($options['choices']);
