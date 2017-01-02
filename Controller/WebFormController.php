@@ -27,7 +27,7 @@ class WebFormController extends Controller
     public function indexAction()
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $webForm = $em->find('WebFormModule:WebForm', $this->webform_id);
 
@@ -46,7 +46,7 @@ class WebFormController extends Controller
                 'name' => $webForm->getName(),
             ]));
 
-        return $this->get('twig')->render('WebFormModule::index.html.twig', [
+        return $this->render('@WebFormModule/index.html.twig', [
             'form'     => $form->createView(),
             'node_id'  => $this->node->getId(),
             'web_form' => $webForm,
@@ -166,9 +166,9 @@ class WebFormController extends Controller
 
         $form->handleRequest($request);
 
-        return $this->get('twig')->render('WebFormModule::index.html.twig', [
-            'form' => $form->createView(),
-            'node_id' => $this->node->getId(),
+        return $this->render('@WebFormModule/index.html.twig', [
+            'form'     => $form->createView(),
+            'node_id'  => $this->node->getId(),
             'web_form' => $webForm,
         ]);
     }
@@ -229,7 +229,7 @@ class WebFormController extends Controller
                 ->setSubject('Сообщение с веб-формы «'.$webForm->getTitle().'» ('.$this->container->getParameter('base_url').')')
                 ->setFrom($webForm->getFromEmail())
                 ->setTo($addresses)
-                ->setBody($this->get('twig')->render('WebFormModule:Email:notice.email.twig', ['web_form' => $webForm, 'message' => $message]))
+                ->setBody($this->renderView('@WebFormModule/Email/notice.email.twig', ['web_form' => $webForm, 'message' => $message]))
             ;
             $mailer->send($message);
         }

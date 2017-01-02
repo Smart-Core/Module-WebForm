@@ -36,16 +36,16 @@ class AdminWebFormController extends Controller
                 if ($form->get('create')->isClicked()) {
                     $webForm = $form->getData();
                     $webForm->setUser($this->getUser());
-                    $this->addFlash('success', 'Веб-форма создана.');
-
                     $this->persist($webForm, true);
+
+                    $this->addFlash('success', 'Веб-форма создана.');
                 }
 
                 return $this->redirectToRoute('web_form.admin');
             }
         }
 
-        return $this->render('WebFormModule:Admin:index.html.twig', [
+        return $this->render('@WebFormModule/Admin/index.html.twig', [
             'form' => $form->createView(),
             'web_forms' => $em = $this->getDoctrine()->getManager()->getRepository('WebFormModule:WebForm')->findAll(),
         ]);
@@ -75,19 +75,17 @@ class AdminWebFormController extends Controller
 
             if ($form->isValid()) {
                 if ($form->get('create')->isClicked()) {
-                    $this->addFlash('success', 'Поле создано.');
-
                     $this->persist($form->getData(), true);
+                    $this->addFlash('success', 'Поле создано.');
                 }
 
                 return $this->redirectToRoute('web_form.admin_fields', ['name' => $webForm->getName()]);
             }
         }
 
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
-        return $this->render('WebFormModule:Admin:fields.html.twig', [
+        return $this->render('@WebFormModule/Admin/fields.html.twig', [
             'form'            => $form->createView(),
             'nodePath'        => $this->getNodePath($webForm),
             'web_form'        => $webForm,
@@ -127,7 +125,7 @@ class AdminWebFormController extends Controller
                 return $this->redirectToRoute('web_form.admin_fields', ['name' => $webForm->getName()]);
             }
 
-            if ($form->isValid() and $form->get('update')->isClicked() and $form->isValid()) {
+            if ($form->isValid() and $form->get('update')->isClicked()) {
                 $this->persist($form->getData(), true);
                 $this->addFlash('success', 'Поле обновлено.');
 
@@ -135,7 +133,7 @@ class AdminWebFormController extends Controller
             }
         }
 
-        return $this->render('WebFormModule:Admin:field_edit.html.twig', [
+        return $this->render('@WebFormModule/Admin/field_edit.html.twig', [
             'form'           => $form->createView(),
             'web_form'       => $webForm,
             'web_form_field' => $webFormField,
@@ -162,7 +160,7 @@ class AdminWebFormController extends Controller
                 return $this->redirectToRoute('web_form.admin_new_messages', ['name' => $webForm->getName()]);
             }
 
-            if ($form->isValid() and $form->get('update')->isClicked() and $form->isValid()) {
+            if ($form->isValid() and $form->get('update')->isClicked()) {
                 $this->persist($form->getData(), true);
                 $this->addFlash('success', 'Настройки обновлены.');
 
@@ -170,7 +168,7 @@ class AdminWebFormController extends Controller
             }
         }
 
-        return $this->render('WebFormModule:Admin:settings.html.twig', [
+        return $this->render('@WebFormModule/Admin/settings.html.twig', [
             'form'      => $form->createView(),
             'nodePath'  => $this->getNodePath($webForm),
             'web_form'  => $webForm,
@@ -185,8 +183,7 @@ class AdminWebFormController extends Controller
      */
     public function messagesAction(Request $request, WebForm $webForm, $status)
     {
-        /** @var \Doctrine\ORM\EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter(
             $em->getRepository('WebFormModule:Message')->getFindByStatusQuery($webForm, $status)
@@ -213,7 +210,7 @@ class AdminWebFormController extends Controller
                 $title = 'New messages';
         }
 
-        return $this->render('WebFormModule:Admin:messages.html.twig', [
+        return $this->render('@WebFormModule/Admin/messages.html.twig', [
             'web_form'   => $webForm,
             'nodePath'   => $this->getNodePath($webForm),
             'pagerfanta' => $pagerfanta,
@@ -253,7 +250,7 @@ class AdminWebFormController extends Controller
             }
         }
 
-        return $this->render('WebFormModule:Admin:edit_message.html.twig', [
+        return $this->render('@WebFormModule/Admin/edit_message.html.twig', [
             'form'      => $form->createView(),
             'web_form'  => $webForm,
         ]);
@@ -284,6 +281,6 @@ class AdminWebFormController extends Controller
             }
         }
 
-        return;
+        return null;
     }
 }
