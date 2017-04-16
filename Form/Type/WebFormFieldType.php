@@ -21,6 +21,7 @@ class WebFormFieldType extends AbstractType
                     'Textarea'    => 'textarea',
                     'Integer'     => 'integer',
                     'Email'       => 'email',
+                    'Telephone'   => 'tel',
                     'URL'         => 'url',
                     'Date'        => 'date',
                     'Datetime'    => 'datetime',
@@ -28,6 +29,7 @@ class WebFormFieldType extends AbstractType
                     'Image'       => 'image',
                     'Choice'      => 'choice',
                     'Multiselect' => 'multiselect',
+                    'Hidden'      => 'hidden',
                 ],
             ])
             ->add('params_yaml',   null, ['attr' => ['data-editor' => 'yaml']])

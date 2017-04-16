@@ -22,16 +22,22 @@ class WebFormController extends Controller
     protected $webform_id;
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param null $options
+     *
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction($options = null)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
 
         $webForm = $em->find('WebFormModule:WebForm', $this->webform_id);
 
-        $form = $this->getForm($webForm);
+        if (isset($options['defaults']) and is_array($options['defaults'])) {
+            $form = $this->getForm($webForm, $options['defaults']);
+        } else {
+            $form = $this->getForm($webForm);
+        }
 
         $feedback_data = $this->getFlash('feedback_data');
 
@@ -40,7 +46,7 @@ class WebFormController extends Controller
             $form->isValid();
         }
 
-        $this->node->addFrontControl('crm')
+        $this->node->addFrontControl('crm-'.md5(microtime()))
             ->setTitle('Управление веб-формой')
             ->setUri($this->generateUrl('web_form.admin_new_messages', [
                 'name' => $webForm->getName(),
@@ -50,6 +56,7 @@ class WebFormController extends Controller
             'form'     => $form->createView(),
             'node_id'  => $this->node->getId(),
             'web_form' => $webForm,
+            'options'  => $options,
         ]);
     }
 
@@ -114,7 +121,7 @@ class WebFormController extends Controller
         }
 
         $errors = [];
-        foreach ($form->getErrors() as $err) {
+        foreach ($form->getErrors(true) as $err) {
             $errors[] = $err->getMessage();
         }
 
@@ -124,7 +131,7 @@ class WebFormController extends Controller
             'data'    => [
                 'request_data' => $request->request->all(),
                 'form_errors'  => $errors,
-                'form_errors_as_string'  => $form->getErrorsAsString(),
+                'form_errors_as_string'  => (string) $form->getErrors(true, false),
             ],
         ], 400);
     }
@@ -237,10 +244,11 @@ class WebFormController extends Controller
 
     /**
      * @param WebForm $webForm
+     * @param array   $defaults
      *
      * @return \Symfony\Component\Form\Form
      */
-    protected function getForm(WebForm $webForm)
+    protected function getForm(WebForm $webForm, array $defaults = [])
     {
         $fb = $this->get('form.factory')->createNamedBuilder('web_form_'.$webForm->getName());
         $fb
@@ -257,6 +265,10 @@ class WebFormController extends Controller
 
             $options['required'] = $field->getIsRequired();
             $options['label'] = $field->getTitle();
+
+            if (isset($defaults[$field->getName()])) {
+                $options['data'] = $defaults[$field->getName()];
+            }
 
             if (isset($options['choices'])) {
                 $options['choices'] = array_flip($options['choices']);
