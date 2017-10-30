@@ -5,7 +5,7 @@ namespace SmartCore\Module\WebForm;
 use SmartCore\Bundle\CMSBundle\Module\ModuleBundle;
 use SmartCore\Module\WebForm\Entity\Message;
 
-class WebFormModule extends ModuleBundle
+class WebFormModuleBundle extends ModuleBundle
 {
     protected $adminMenuBeforeCode = '<i class="fa fa-bullhorn"></i>';
 
@@ -22,8 +22,8 @@ class WebFormModule extends ModuleBundle
 
         $em = $this->container->get('doctrine.orm.entity_manager');
 
-        foreach ($em->getRepository('WebFormModule:WebForm')->findAll() as $webForm) {
-            $count = $em->getRepository('WebFormModule:Message')->getCountByStatus($webForm, Message::STATUS_NEW);
+        foreach ($em->getRepository('WebFormModuleBundle:WebForm')->findAll() as $webForm) {
+            $count = $em->getRepository('WebFormModuleBundle:Message')->getCountByStatus($webForm, Message::STATUS_NEW);
 
             if ($count) {
                 // @todo подумать над форматом уведомлений.

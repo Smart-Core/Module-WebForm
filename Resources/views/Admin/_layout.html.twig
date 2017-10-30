@@ -21,14 +21,14 @@
     {% endif %}
 
     {% if web_form %}
-        {% set configurationMenu = knp_menu_get('WebFormModule:AdminMenu:manage', [], {
+        {% set configurationMenu = knp_menu_get('WebFormModuleBundle:AdminMenu:manage', [], {
             'web_form': web_form,
         }) %}
 
         {{ knp_menu_render(configurationMenu, {
             'currentClass': 'active',
             'clear_matcher': false,
-            'template': 'WebFormModule:Menu:knp_menu.html.twig',
+            'template': 'WebFormModuleBundle:Menu:knp_menu.html.twig',
         }) }}
     {% endif %}
 

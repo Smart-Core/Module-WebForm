@@ -30,8 +30,8 @@ class AdminMenu implements ContainerAwareInterface
 
         $em = $this->container->get('doctrine.orm.entity_manager');
 
-        $countNewMessages = $em->getRepository('WebFormModule:Message')->getCountByStatus($webForm, Message::STATUS_NEW);
-        $countInProgress  = $em->getRepository('WebFormModule:Message')->getCountByStatus($webForm, Message::STATUS_IN_PROGRESS);
+        $countNewMessages = $em->getRepository('WebFormModuleBundle:Message')->getCountByStatus($webForm, Message::STATUS_NEW);
+        $countInProgress  = $em->getRepository('WebFormModuleBundle:Message')->getCountByStatus($webForm, Message::STATUS_IN_PROGRESS);
 
         $menu->addChild('New messages', ['route' => 'web_form.admin_new_messages',  'routeParameters' => ['name' => $webForm->getName()]])->setExtras(['countNewMessages' => $countNewMessages]);
         $menu->addChild('In progress',  ['route' => 'web_form.admin_in_progress',   'routeParameters' => ['name' => $webForm->getName()]])->setExtras(['countInProgress'  => $countInProgress]);

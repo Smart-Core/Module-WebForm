@@ -31,7 +31,7 @@ class WebFormController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $webForm = $em->find('WebFormModule:WebForm', $this->webform_id);
+        $webForm = $em->find('WebFormModuleBundle:WebForm', $this->webform_id);
 
         if (isset($options['defaults']) and is_array($options['defaults'])) {
             $form = $this->getForm($webForm, $options['defaults']);
@@ -74,7 +74,7 @@ class WebFormController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $webForm = $em->find('WebFormModule:WebForm', $this->webform_id);
+        $webForm = $em->find('WebFormModuleBundle:WebForm', $this->webform_id);
 
         $form = $this->getForm($webForm);
 
@@ -146,7 +146,7 @@ class WebFormController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $webForm = $em->find('WebFormModule:WebForm', $this->webform_id);
+        $webForm = $em->find('WebFormModuleBundle:WebForm', $this->webform_id);
 
         $form = $this->getForm($webForm);
 
@@ -190,7 +190,7 @@ class WebFormController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getDoctrine()->getManager();
 
-        $webForm = $em->find('WebFormModule:WebForm', $this->webform_id);
+        $webForm = $em->find('WebFormModuleBundle:WebForm', $this->webform_id);
 
         $form = $this->getForm($webForm);
 
