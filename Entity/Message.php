@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Smart\CoreBundle\Doctrine\ColumnTrait;
 
 /**
- * @ORM\Entity(repositoryClass="SmartCore\Module\WebForm\Entity\MessageRepository")
+ * @ORM\Entity(repositoryClass="MessageRepository")
  * @ORM\Table(name="webforms_messages")
  */
 class Message
