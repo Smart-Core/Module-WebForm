@@ -47,7 +47,7 @@ class AdminWebFormController extends Controller
 
         return $this->render('@WebFormModule/Admin/index.html.twig', [
             'form' => $form->createView(),
-            'web_forms' => $em = $this->getDoctrine()->getManager()->getRepository('WebFormModuleBundle:WebForm')->findAll(),
+            'web_forms' => $em = $this->getDoctrine()->getManager()->getRepository(WebForm::class)->findAll(),
         ]);
     }
 
@@ -89,7 +89,7 @@ class AdminWebFormController extends Controller
             'form'            => $form->createView(),
             'nodePath'        => $this->getNodePath($webForm),
             'web_form'        => $webForm,
-            'web_form_fields' => $em->getRepository('WebFormModuleBundle:WebFormField')->findBy(['web_form' => $webForm], ['position' => 'ASC']),
+            'web_form_fields' => $em->getRepository(WebFormField::class)->findBy(['web_form' => $webForm], ['position' => 'ASC']),
         ]);
     }
 
@@ -186,7 +186,7 @@ class AdminWebFormController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter(
-            $em->getRepository('WebFormModuleBundle:Message')->getFindByStatusQuery($webForm, $status)
+            $em->getRepository(Message::class)->getFindByStatusQuery($webForm, $status)
         ));
         $pagerfanta->setMaxPerPage(20);
 

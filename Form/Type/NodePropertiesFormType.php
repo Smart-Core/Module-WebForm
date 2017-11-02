@@ -3,6 +3,7 @@
 namespace SmartCore\Module\WebForm\Form\Type;
 
 use SmartCore\Bundle\CMSBundle\Module\AbstractNodePropertiesFormType;
+use SmartCore\Module\WebForm\Entity\WebForm;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -11,7 +12,7 @@ class NodePropertiesFormType extends AbstractNodePropertiesFormType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $webforms = [];
-        foreach ($this->em->getRepository('WebFormModuleBundle:WebForm')->findAll() as $webform) {
+        foreach ($this->em->getRepository(WebForm::class)->findAll() as $webform) {
             $webforms[(string) $webform] = $webform->getId();
         }
 
