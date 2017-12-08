@@ -7,22 +7,30 @@
 <div class="box box-primary">
     <div class="box-header with-border">
 
-    <h2>{{ 'All'|trans ~ ' ' ~ 'WebForms'|trans }}</h2>
-
     <table class="table table-bordered table-hover">
         <thead><tr>
             <th style="width: 1%;">id</th>
             <th>{{ 'Title'|trans }}</th>
+            <th>{{ 'Last message date'|trans }}</th>
+            <th>{{ 'New messages'|trans }}</th>
+            <th>{{ 'In progress'|trans }}</th>
             <th>{{ 'Name'|trans }}</th>
-            <th>{{ 'Created at'|trans }}</th>
         </tr></thead>
         <tbody>
         {% for item in web_forms %}
             <tr>
                 <td>{{ item.id }}</td>
                 <td><a href="{{ path('web_form.admin_manage', {'name': item.name}) }}">{{ item.title }}</a></td>
+                <td>
+                  {% if item.lastMessageDate is not empty %}
+                      <a href="{{ path('web_form.admin_manage', {'name': item.name}) }}">{{ item.lastMessageDate|format_datetime }}</a>
+                  {% else %}
+                      -
+                  {% endif %}
+                </td>
+                <td><a href="{{ path('web_form.admin_manage', {'name': item.name}) }}">{{ module_webform_count_new(item) }}</a></td>
+                <td><a href="{{ path('web_form.admin_manage', {'name': item.name}) }}">{{ module_webform_count_inprogress(item) }}</a></td>
                 <td><a href="{{ path('web_form.admin_manage', {'name': item.name}) }}">{{ item.name }}</a></td>
-                <td>{{ item.createdAt|date() }}</td>
             </tr>
         {% endfor %}
         </tbody>

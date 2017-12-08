@@ -63,6 +63,13 @@ class WebForm
     protected $final_text;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $last_message_date;
+
+    /**
      * @var WebFormField[]
      *
      * @ORM\OneToMany(targetEntity="WebFormField", mappedBy="web_form")
@@ -256,6 +263,26 @@ class WebForm
     public function setFromEmail($from_email)
     {
         $this->from_email = $from_email;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastMessageDate(): ?\DateTime
+    {
+        return $this->last_message_date;
+    }
+
+    /**
+     * @param \DateTime $last_message_date
+     *
+     * @return $this
+     */
+    public function setLastMessageDate(\DateTime $last_message_date)
+    {
+        $this->last_message_date = $last_message_date;
 
         return $this;
     }

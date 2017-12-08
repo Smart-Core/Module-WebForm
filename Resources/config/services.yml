@@ -5,3 +5,9 @@ services:
 #    web_form.example:
 #        class: "%web_form.example.class%"
 #        arguments: [@service_id, "plain_value", "%parameter%"]
+
+    webformmodule.twig.web_form_extension:
+        class: SmartCore\Module\WebForm\Twig\WebFormExtension
+        arguments: [ '@service_container' ]
+        tags:
+            - { name: twig.extension }

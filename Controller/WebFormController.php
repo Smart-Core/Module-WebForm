@@ -112,6 +112,9 @@ class WebFormController extends Controller
             ;
             $this->persist($message, true);
 
+            $webForm->setLastMessageDate(clone $message->getCreatedAt());
+            $this->persist($webForm, true);
+
             $this->sendNoticeEmails($webForm, $message);
 
             return new JsonResponse([
@@ -206,6 +209,9 @@ class WebFormController extends Controller
                 ->setIpAddress($request->server->get('REMOTE_ADDR'))
             ;
             $this->persist($message, true);
+
+            $webForm->setLastMessageDate(clone $message->getCreatedAt());
+            $this->persist($webForm, true);
 
             $this->sendNoticeEmails($webForm, $message);
 

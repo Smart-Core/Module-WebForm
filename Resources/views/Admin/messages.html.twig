@@ -1,5 +1,7 @@
 {% extends '@WebFormModule/Admin/_layout.html.twig' %}
 
+{% set page_description = 'WebForm messages'|trans ~ ': &laquo;<strong>' ~ web_form ~ '</strong>&raquo;' %}
+
 {#
 {% block styles %}
     {{ parent() }}
@@ -29,7 +31,7 @@
         <tbody>
         {% for item in pagerfanta %}
             <tr class="message_row">
-                <td style="white-space: nowrap; width: 1%;"><a href="{{ path('web_form.admin_edit_message', {'id': item.id, 'name': web_form.name}) }}">{{ item.createdAt|date() }}</a></td>
+                <td style="white-space: nowrap; width: 1%;"><a href="{{ path('web_form.admin_edit_message', {'id': item.id, 'name': web_form.name}) }}">{{ item.createdAt|format_datetime }}</a></td>
                 <td><a href="{{ path('web_form.admin_edit_message', {'id': item.id, 'name': web_form.name}) }}">{{ item.briefly }}</a></td>
                 <td>{{ item.comment }}</td>
             </tr>
