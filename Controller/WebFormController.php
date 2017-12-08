@@ -8,6 +8,7 @@ use Smart\CoreBundle\Form\TypeResolverTtait;
 use SmartCore\Bundle\CMSBundle\Module\NodeTrait;
 use SmartCore\Module\WebForm\Entity\Message;
 use SmartCore\Module\WebForm\Entity\WebForm;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -252,6 +253,7 @@ class WebFormController extends Controller
     {
         $fb = $this->get('form.factory')->createNamedBuilder('web_form_'.$webForm->getName());
         $fb
+            ->add('_node_id', HiddenType::class, ['data' => $this->node->getId()])
             //->setAttribute('id', 'web_form_'.$webForm->getName())
             ->setErrorBubbling(false)
         ;
